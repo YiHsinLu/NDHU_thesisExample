@@ -1,0 +1,302 @@
+%%%Compiler: XeLaTex
+\documentclass[12pt,a4paper,oneside]{book}
+\usepackage{indentfirst}
+\usepackage{colortbl}
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage[labelfont=bf]{caption}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage{xeCJK}
+    \xeCJKsetup{AutoFakeBold=true, AutoFakeSlant=true}
+    \setCJKmainfont{TW-Kai-98_1.ttf}
+    \setmainfont{Times New Roman}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{amsfonts}
+\usepackage{anyfontsize}
+\usepackage{setspace}
+\usepackage[colorlinks,citecolor=cyan,urlcolor=cyan,ypertexnames=true, linkcolor=blue]{hyperref}
+\urlstyle{same}
+\usepackage{titlesec}
+\pagestyle{plain}
+\usepackage{background}
+\usepackage{blindtext}
+\backgroundsetup{scale = 1, angle = 0, opacity = 0.2,
+  contents = {\includegraphics[height = 6cm]{figure/NDHU_logo.png}}}
+\newcommand\DeactivateBG{\backgroundsetup{contents={}}}
+
+\usepackage[backend=biber, style=ieee, labeldateparts, sorting=nyvt, maxbibnames=99, maxcitenames=2, mincitenames=1]{biblatex}
+
+\addbibresource{ref.bib}
+\DeclareLabeldate[misc]{%
+  \field{date}
+  \field{year}
+  \field{eventdate}
+  \field{origdate}
+  \field{urldate}
+}
+
+\providebool{cbx:parens}
+
+\newbibmacro*{citeyear}{%
+  \iffieldundef{shorthand}
+    {\iffieldundef{labelyear}
+       {\usebibmacro{cite:label}}
+       {\usebibmacro{cite:labeldate+extradate}}}
+    {\usebibmacro{cite:shorthand}}}
+
+\newbibmacro*{aytcite}{%
+  \ifnameundef{labelname}
+    {\iffieldundef{shorthand}
+       {\usebibmacro{cite:label}%
+        \setunit{%
+          \global\booltrue{cbx:parens}%
+          \printdelim{nonameyeardelim}\bibopenparen}%
+        \ifnumequal{\value{citecount}}{1}
+          {\usebibmacro{prenote}}
+          {}%
+        \usebibmacro{cite:labeldate+extradate}}
+       {\usebibmacro{cite:shorthand}}}
+    {\printnames{labelname}%
+     \setunit{%
+       \global\booltrue{cbx:parens}%
+       \printdelim{nameyeardelim}\bibopenparen}%
+     \ifnumequal{\value{citecount}}{1}
+       {\usebibmacro{prenote}}
+       {}%
+     \usebibmacro{citeyear}}}
+
+\newbibmacro*{cite:shorthand}{%
+  \printtext[bibhyperref]{\printfield{shorthand}}}
+
+\newbibmacro*{cite:label}{%
+  \iffieldundef{label}
+    {\printtext[bibhyperref]{\printfield[citetitle]{labeltitle}}}
+    {\printtext[bibhyperref]{\printfield{label}}}}
+
+\newbibmacro*{cite:labeldate+extradate}{%
+  \iffieldundef{labelyear}
+    {}
+    {\printtext[bibhyperref]{\printlabeldateextra}}}
+
+\newbibmacro*{aytcite:postnote}{%
+  \iffieldundef{postnote}
+    {\ifbool{cbx:parens}
+       {\bibcloseparen}
+       {}}
+    {\ifbool{cbx:parens}
+       {\setunit{\postnotedelim}}
+       {\setunit{\extpostnotedelim\bibopenparen}}%
+     \printfield{postnote}\bibcloseparen}}
+
+\DeclareCiteCommand{\aytcite}
+  {\boolfalse{cbx:parens}}
+  {\usebibmacro{citeindex}%
+   \iffirstcitekey
+     {\setcounter{textcitetotal}{1}}
+     {\stepcounter{textcitetotal}%
+      \aytcitedelim}%
+   \usebibmacro{aytcite}}
+  {\ifbool{cbx:parens}
+     {\bibcloseparen\global\boolfalse{cbx:parens}}
+     {}}
+  {\usebibmacro{aytcite:postnote}}
+
+\providecommand{\keywordsch}[1]
+{
+  \small  
+  \textbf{關鍵字： }#1
+}
+
+\providecommand{\keywords}[1]
+{
+  \small  
+  \textbf{Keywords: }#1
+}
+
+\usepackage{xcolor}
+
+\definecolor{FF40BF}{HTML}{FF40BF}
+\definecolor{B66DDB}{HTML}{B66DDB}
+\renewbibmacro*{cite:labelyear+extrayear}{%
+  \ifentrytype{misc}
+    {}
+    {\iffieldundef{labelyear}
+      {}
+      {\printtext[bibhyperref]{%
+         \printtext{(}\printfield{labelyear}\printfield{extrayear}\printtext{)}}}}}
+
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{1}%
+    \newpage}
+
+    
+\begin{document}
+\begin{titlepage}
+\DeactivateBG
+   \begin{center}
+        
+       \vspace{3cm} 
+       \vspace{30pt}
+       
+       \fontsize{24}{24}\selectfont  國立東華大學\hspace*{5mm}應用數學系\\
+       \renewcommand{\baselinestretch}{2}
+       \fontsize{24}{24}\selectfont 碩士論文\\
+       \renewcommand{\baselinestretch}{2}
+       \fontsize{22}{22}\selectfont 指導教授：\hspace*{25mm}博士\\
+       \vspace{20pt}
+       \fontsize{24}{24}\selectfont
+       
+       \textbf{論文標題}\\
+       \fontsize{14}{14}\selectfont
+       \textbf{\textit{Thesis Title}}\\
+       \vspace{90pt}
+       \includegraphics[height=6cm]{figure/NDHU_logo.png}\\
+       %\vspace{0.5cm}
+       \fontsize{22}{22}\selectfont 研究生：\hspace*{25mm}撰\\
+       \vspace{20pt}
+       \fontsize{22}{22}\selectfont 中華民國 ？ 年 ？ 月
+   \end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+
+\newpage %%add a blank page
+\blankpage
+
+%% Chinese abstract
+\chapter*{\centering 摘要}
+
+這篇論文提供...
+
+\mbox{}
+\vfill
+\keywordsch{論文}%chinese keywords
+
+\thispagestyle{empty}
+
+%English abstract
+\chapter*{\centering Abstract}
+
+This thesis presented ...
+
+\mbox{}
+\vfill
+\keywords{thesis}%keywords
+
+\thispagestyle{empty}
+
+\newpage
+%%Table of Contents
+\setcounter{page}{1}
+{
+  \hypersetup{linkcolor=black}
+  \tableofcontents
+}
+
+\newpage
+
+\chapter{Introduction}
+\label{ch: intro}
+\section{Table}
+
+\begin{table}[H]
+\centering
+\fontsize{20}{20}\selectfont%change the size for the text in table
+\caption{Table}
+\renewcommand{\arraystretch}{1.5}
+\label{tab: tab1}
+\begin{tabular}[t]{|c|c|c|}%c=centering
+    \hline
+    & v1 & v2 \\
+    \hline
+    $x_1$ & 1 & 0\\
+    \hline
+    \vdots & \vdots & \vdots\\
+    \hline
+    $x_n$ & 0 & 1\\
+    \hline
+\end{tabular}
+\end{table}
+
+\section{Equations}
+%%\Large{}=fontsize
+%%\Huge->\huge->\Large->\large->\normalsize->\small->\footnotesize->\scripsize->\tiny
+\begin{equation}\label{equ: reg}
+    \Large{\mathcal{Y} = \mathbb{X}\beta+\epsilon}
+\end{equation}
+
+\begin{equation*}\label{equ: reg}
+    y_i =\beta_0+\beta_1x_1+\epsilon_i,\;i=1,\cdots,n
+\end{equation*}
+
+\section{Figure}
+\begin{figure}[H]
+     \centering
+     \includegraphics[width=1\textwidth]{figure/NDHU_logo.png}
+     \caption{NDHU Logo}
+     \label{fig: ndhulogo}
+\end{figure}
+
+\newpage
+\subsection{Sideway Figure}
+\label{fig: sideways}
+
+\begin{sidewaysfigure}
+\begin{figure}[H]
+     \centering
+     \includegraphics[width=0.3\textwidth]{figure/NDHU_logo.png}
+     \caption{NDHU Logo}
+\end{figure}
+\end{sidewaysfigure}
+
+\newpage
+\section{Hyper Links}
+\label{sec: link}
+
+\begin{itemize}
+    \item Chapter \ref{ch: intro}
+    \item Section \ref{sec: link}
+    \item Table \ref{tab: tab1}
+    \item Euqation (\ref{equ: reg})
+    \item Figure \ref{fig: ndhulogo}
+\end{itemize}
+
+\section{Citation}
+
+\begin{itemize}
+    \item \cite{lu2023art} present a paper or thesis...
+    \item \cite{lu2023misc} is a website...
+    \item \cite{lu2023book} is a book...
+    \item \cite{lu2023online} share a video from YouTube...
+    \item \aytcite{lu2023art} present a paper or thesis...
+    \item \aytcite{lu2023misc} is a website...
+    \item \aytcite{lu2023book} is a book...
+    \item \aytcite{lu2023online} share a video from YouTube...
+\end{itemize}
+
+aytcite
+
+\chapter{Methods}
+
+\chapter{Results and Discussion}
+
+\chapter{Conclusions}
+
+\newpage
+
+\printbibliography[title={References}, heading=bibintoc]
+
+\newpage
+
+\appendix 
+\chapter{}
+
+\end{document}
