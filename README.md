@@ -16,7 +16,7 @@ Thesis example is created by XeLaTex and followed the rules and types from NDHU.
 
 ### 1. Selecting a LaTex editor is the first step, I prefer to edit on website [Overleaf](https://www.overleaf.com/) .
 
-![](C:\Yi-Hsin\NDHU_thesisExample\figure\overleaf_web.jpg)
+![](figure\overleaf_web.jpg){width=100%}
 
 ****
 
